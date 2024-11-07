@@ -111,7 +111,7 @@ def hist2features(grayImg, mangoMask):
     return df_intensities
 
 folderRipe = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Ripe"
-folderRotten = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Rotten"
+folderRotten = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/subRotten"
 
 def analizerImages(folder_path):
     all_results_df = pd.DataFrame()
@@ -132,25 +132,29 @@ def analizerImages(folder_path):
     
     # Gráficos de barras
     plt.figure()
-    all_results_df['max_gray_value'].plot(kind='bar')
+    all_results_df['max_gray_value'].plot(kind='hist')
     plt.title('Max Gray Value (Bar Plot)')
     plt.show()
 
     plt.figure()
-    all_results_df['min_gray_value'].plot(kind='bar')
+    all_results_df['min_gray_value'].plot(kind='hist')
     plt.title('Min Gray Value (Bar Plot)')
     plt.show()
 
     plt.figure()
-    all_results_df['mean_gray_value'].plot(kind='bar')
+    all_results_df['mean_gray_value'].plot(kind='hist')
     plt.title('Mean Gray Value (Bar Plot)')
     plt.show()
 
     plt.figure()
-    all_results_df['std'].plot(kind='bar')
+    all_results_df['std'].plot(kind='hist')
     plt.title('Standard Deviation (Bar Plot)')
     plt.show()
-
+    
+    plt.figure()
+    all_results_df['area'].plot(kind='line')
+    plt.title('Area (Bar Plot)')
+    plt.show()
     # Gráficos de caja
     plt.figure()
     all_results_df.boxplot(column=['max_gray_value'])
@@ -171,6 +175,11 @@ def analizerImages(folder_path):
     all_results_df.boxplot(column=['std'])
     plt.title('Standard Deviation (Box Plot)')
     plt.show()
+    
+    plt.figure()
+    all_results_df.boxplot(column=['area'])
+    plt.title('Area (Box Plot)')
+    plt.show()
 
     # Gráficos de dispersión
     plt.figure()
@@ -183,5 +192,5 @@ def analizerImages(folder_path):
     plt.show()
 
 analizerImages(folderRipe)            
-analizerImages(folderRotten)
+# analizerImages(folderRotten)
 
