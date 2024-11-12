@@ -12,6 +12,12 @@ from skimage.color import rgb2gray
 from scipy.ndimage import binary_fill_holes
 from skimage.morphology import remove_small_objects
 
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+
 def convert_toGrayImage(filename):
     img = ski.io.imread(filename)
     img = ski.util.img_as_ubyte(img)
@@ -110,9 +116,12 @@ def hist2features(grayImg, mangoMask):
     print(df_intensities)
     return df_intensities
 
-folderRipe = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Ripe"
+folderRipe = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/subRipe"
 folderRotten = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/subRotten"
 
+def saveData(folderRipe, folderRotten):
+    all_results_df = pd.DataFrame()
+    
 def analizerImages(folder_path):
     all_results_df = pd.DataFrame()
     
@@ -191,6 +200,39 @@ def analizerImages(folder_path):
     plt.title('Scatter Plot of Values')
     plt.show()
 
-analizerImages(folderRipe)            
+# analizerImages(folderRipe)            
 # analizerImages(folderRotten)
+
+# Cargar los datos desde el archivo CSV
+data = pd.read_csv('results.csv')
+
+print(data)
+
+# Seleccionar las variables independientes (X) y la variable dependiente (y)
+# Supongamos que 'mean_gray_value' es la variable dependiente
+# X = data[['max_gray_value', 'min_gray_value', 'mean_value_R', 'mean_value_G', 'mean_value_B', 'std']]
+# y = data['mean_gray_value']
+
+# # Dividir los datos en conjuntos de entrenamiento y prueba
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# # Crear el modelo de regresión lineal
+# model = LinearRegression()
+
+# # Entrenar el modelo con los datos de entrenamiento
+# model.fit(X_train, y_train)
+
+# # Hacer predicciones con el conjunto de prueba
+# y_pred = model.predict(X_test)
+
+# # Evaluar el rendimiento del modelo
+# mse = mean_squared_error(y_test, y_pred)
+# r2 = r2_score(y_test, y_pred)
+
+# print(f'Mean Squared Error: {mse}')
+# print(f'R^2 Score: {r2}')
+
+# # Mostrar los coeficientes del modelo
+# print('Coefficients:', model.coef_)
+# print('Intercept:', model.intercept_)
 

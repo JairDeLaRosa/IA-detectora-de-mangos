@@ -90,9 +90,8 @@ def hist2features(grayImg, mangoMask):
     plt.show()
     df_intensities = intensity_table(masked_gray)
     print(df_intensities)
-    return df_intensities
 
-img_file1 = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Ripe/166.jpg"
+img_file1 = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Ripe/1.jpg"
 img_file2 = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Rotten/6.jpg."
 
 grayImg1, img1 = convert_toGrayImage(img_file1)
@@ -104,8 +103,8 @@ mango_mask2 = get_binaryMango(grayImg2)
 #Dos opciones para vectorizar las imagenes: podría tomar una de las dos opciones
 
 #  --> opción 1, Cada valor de la escala de grises se toma como una característica de la imagen.
-hist2features(grayImg1, mango_mask1)
-hist2features(grayImg2, mango_mask2)
+# hist2features(grayImg1, mango_mask1)
+# hist2features(grayImg2, mango_mask2)
 
 #  --> opción 2, se extraen características de las imagenes utilizando la función regionprops, aquí se extraen algunas propiedades; pero
 #      podrían tomarse más características.
