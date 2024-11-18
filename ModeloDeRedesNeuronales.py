@@ -7,6 +7,7 @@ from tensorflow.keras.regularizers import l2
 from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from imblearn.over_sampling import SMOTE
 
 # Cargar los datos desde el archivo CSV
 data = pd.read_excel('caracteristicas_mangos.xlsx')
@@ -24,7 +25,10 @@ y = label_encoder.fit_transform(y)
 
 # Dividir los datos en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=100)
-
+smote = SMOTE(random_state=42)
+X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
+print("Distribución de clases después del balanceo:")
+print(pd.Series(y_train_balanced).value_counts())
 # Crear el modelo de red neuronal
 model = Sequential()
 # Primera capa oculta con regularización y más neuronas
@@ -41,7 +45,7 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 
 # Entrenar el modelo
 history = model.fit(
-    X_train, y_train,
+    X_train_balanced, y_train_balanced,
     epochs=50, batch_size=4, 
     validation_split=0.2, 
     verbose=1
@@ -49,6 +53,38 @@ history = model.fit(
 
 # Hacer predicciones en el conjunto de prueba
 y_pred = (model.predict(X_test) > 0.5).astype("int32")
+
+
+
+
+
+
+# # Crear el modelo de red neuronal
+# model = Sequential()
+# # Primera capa oculta con regularización y más neuronas
+# model.add(Dense(64, input_dim=X_train.shape[1], activation='relu', kernel_regularizer=l2(0.0001)))
+# model.add(Dropout(0.2))  # Dropout para reducir el sobreajuste
+# # Segunda capa oculta
+# model.add(Dense(8, activation='relu', kernel_regularizer=l2(0.0001)))
+# model.add(Dropout(0.2))
+# # Capa de salida
+# model.add(Dense(1, activation='sigmoid'))  # Sigmoid para clasificación binaria
+
+# # Compilar el modelo
+# model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# # Entrenar el modelo
+# history = model.fit(
+#     X_train_balanced, y_train_balanced,
+#     epochs=40, batch_size=4, 
+#     validation_split=0.2, 
+#     verbose=1
+# )
+
+# # Hacer predicciones en el conjunto de prueba
+# y_pred = (model.predict(X_test) > 0.5).astype("int32")
+# # Hacer predicciones en el conjunto de prueba
+# y_pred = (model.predict(X_test) > 0.5).astype("int32")
 
 # Evaluar el modelo
 accuracy = accuracy_score(y_test, y_pred)

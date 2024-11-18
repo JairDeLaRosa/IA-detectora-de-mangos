@@ -7,8 +7,8 @@ import seaborn as sns
 import pandas as pd
 
 # Directorio de las imágenes de mangos
-data_path_maduros = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Ripe"
-data_path_podridos = "C:/Users/HP/OneDrive - Universidad del Magdalena/Documentos/archive/dataset/train/Rotten"
+data_path_maduros = "C:/Users/HOLA/Downloads/IA-detectora-de-mangos-main/IA-detectora-de-mangos-main/IA-detectora-de-mangos/Ripe"
+data_path_podridos = "C:/Users/HOLA/Downloads/IA-detectora-de-mangos-main/IA-detectora-de-mangos-main/IA-detectora-de-mangos/Rotten"
 
 # Muestra algunas imágenes de cada clase
 # def mostrar_imagenes(clase_path, titulo, n=5):
